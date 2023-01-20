@@ -3,28 +3,28 @@ module.exports = function check(str, bracketsConfig) {
     return false;
   }
 
-  let bracket = bracketsConfig.join('');
+  let bracket = [];
+  let inArrStr = [];
+
+  bracketsConfig.forEach(element => {
+     element.forEach(element => {
+      bracket.push(element);
+     }) 
+  });
+
+  let arrStr = str.split('');
+
+  arrStr.forEach(element => {
+      inArrStr.push(element);
+      
+  })
   
-  let a = '';
-  let b ='';
-
-  for (let i = 0; i < str.length; i++){
-    a = str[i];
-
-    for(let j = 0; j < bracket.length; j++){
-      b = bracket[j];
-    }
-
-    if (a === b) {
+  let result = bracket.filter(item => !inArrStr.includes(item));
+  
+  if (result == 0){
       return true
-    }else{
+  }else{
       return false
     }
-        
-  }
-
-
-
-
   
 }
