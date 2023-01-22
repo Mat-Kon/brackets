@@ -1,30 +1,31 @@
-module.exports = function check(str, bracketsConfig) {
-  if (str.length === 0){
-    return false;
-  }
-
-  let bracket = [];
-  let inArrStr = [];
-
-  bracketsConfig.forEach(element => {
-     element.forEach(element => {
-      bracket.push(element);
-     }) 
-  });
-
-  let arrStr = str.split('');
-
-  arrStr.forEach(element => {
-      inArrStr.push(element);
-      
-  })
+module.exports = function check(str, bracketsConfig) {     
+   const stack = [];
   
-  let result = bracket.filter(item => !inArrStr.includes(item));
-  
-  if (result == 0){
-      return true
-  }else{
-      return false
-    }
-  
+    
+   for (let i = 0; i < str.length; i++) {
+      const stack = [];
+
+      for (let i = 0; i < str.length; i++) {
+        let symbol = str[i];
+    
+        for (let brackets of bracketsConfig) {
+            const openBracket = brackets[0];
+            const closeBracket = brackets[1];
+    
+            if (symbol === openBracket) {
+                stack.push(symbol);
+                break;
+            }
+    
+            if (symbol === closeBracket && stack.pop() !== openBracket) {
+                return false
+            }
+        };
+      }
+    
+      return stack.length === 0;
+   }
 }
+
+
+
