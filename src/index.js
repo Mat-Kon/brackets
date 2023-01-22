@@ -12,7 +12,9 @@ module.exports = function check(str, bracketsConfig) {
             const openBracket = brackets[0];
             const closeBracket = brackets[1];
     
-            if (symbol === openBracket) {
+            const canPush = openBracket !== closeBracket || openBracket === closeBracket && !stack.includes(openBracket)
+    
+            if (symbol === openBracket && canPush) {
                 stack.push(symbol);
                 break;
             }
@@ -26,6 +28,7 @@ module.exports = function check(str, bracketsConfig) {
       return stack.length === 0;
    }
 }
+   
 
 
 
